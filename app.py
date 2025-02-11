@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('Index.html', categories=perguntas.quiz_data.keys())
+    return render_template('home.html', categories=perguntas.quiz_data.keys())
 
 @app.route('/quiz/<category>')
 def quiz(category):
