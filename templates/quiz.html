@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de {{ category }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Quiz de {{ category }}</h1>
+    <div id="quiz-container">
+        <div id="question-container"></div>
+        <button id="home-button" style="display:none;" onclick="goHome()">Ir para a página inicial</button>
+    </div>
+    <script>
+        const questions = {{ quiz | tojson }};
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            if (questions.length === 0) {
+                alert("Nenhuma pergunta disponível.");
+                return;
+            }
+
+            if (currentQuestionIndex < questions.length) {
+                const question = questions[currentQuestionIndex];
+                const questionContainer = document.getElementById('question-container');
+                questionContainer.innerHTML = `
+                    <h3>${question.question}</h3>
+                    ${question.options.map((option, index) => `
+                        <div>
+                            <input type="radio" id="option${index}" name="question" value="${option}">
+                            <label for="option${index}">${option}</label>
+                        </div>
+                    `).join('')}
+                    <button onclick="submitAnswer()">Enviar</button>
+                `;
+                if (currentQuestionIndex > 0) {
+                    document.getElementById('next-button').style.display = 'inline';
+                }
+            } else {
+                showScore();
+            }
+        }
+
+        function loadQuestion() {
+    if (currentQuestionIndex < questions.length) {
+        const question = questions[currentQuestionIndex];
+        const questionContainer = document.getElementById('question-container');
+        questionContainer.innerHTML = `
+            <h3>${question.question}</h3>
+            ${question.options.map((option, index) => `
+                <div onclick="selectOption(this)">
+                    <input type="radio" id="option${index}" name="question" value="${option}">
+                    <label for="option${index}">${option}</label>
+                </div>
+            `).join('')}
+            <button onclick="submitAnswer()">Enviar</button>
+        `;
+    } else {
+        showScore();
+    }
+}
+
+function selectOption(option) {
+    const selectedOption = option.querySelector('input');
+    selectedOption.checked = true;
+}
+
+function submitAnswer() {
+    const selectedOption = document.querySelector('input[name="question"]:checked');
+    if (selectedOption) {
+        const answer = selectedOption.value;
+        const feedback = document.createElement('div');
+        feedback.classList.add('feedback');
+        if (answer === questions[currentQuestionIndex].answer) {
+            feedback.classList.add('correct');
+            feedback.textContent = "✅ Resposta correta!";
+            score++;
+        } else {
+            feedback.classList.add('incorrect');
+            feedback.textContent = "❌ Resposta incorreta!";
+        }
+        document.body.appendChild(feedback);
+        setTimeout(() => {
+            feedback.remove();
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showScore();
+            }
+        }, 2500); // Remove o feedback após 2.5 segundos
+    } else {
+        const feedback = document.createElement('div');
+        feedback.classList.add('feedback', 'incorrect');
+        feedback.textContent = "⚠️ Selecione uma alternativa antes de prosseguir.";
+        document.body.appendChild(feedback);
+        setTimeout(() => {
+            feedback.remove();
+        }, 2500); // Remove o feedback após 2.5 segundos
+    }
+}
+
+function showScore() {
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.innerHTML = `
+        <h3>Fim do jogo!</h3>
+        <p>Sua pontuação é ${score}/${questions.length}</p>
+        <button onclick="goHome()">Voltar à página inicial</button>
+    `;
+}
+
+function goHome() {
+    window.location.href = "/";
+}
+
+// Iniciar o quiz
+loadQuestion();
+    </script>
+</body>
+</html>
