@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DigitalMinds</title>
+    <link rel="icon" type="image/png" href="brain.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div id="home-container">
-        <h1>Bem-vindo ao Digital Minds!</h1>
+        <h1>Bem-vindo ao Quiz Digital Minds!</h1>
         <p>Selecione uma categoria para começar:</p>
         <ul>
             {% for category in categories %}

@@ -101,7 +101,7 @@ h1 {
     white-space: nowrap; /* Impede que o texto quebre em várias linhas */
     border-right: 3px solid #00ffcc; /* Cursor de digitação */
     display: inline-block; /* Faz com que o título ocupe apenas o espaço do texto */
-    animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+    animation: typing 2s steps(30, end), blink-caret 0.75s step-end infinite;
 }
 
 @keyframes typing {
@@ -136,10 +136,13 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+    gap: 50px; /* Espaçamento entre os itens */
 }
 
 ul li {
-    margin-bottom: 15px;
+    margin-bottom: 0; /* Remove a margem inferior */
     animation: slideIn 0.5s ease-in-out;
     animation-fill-mode: both;
 }
@@ -150,7 +153,9 @@ ul li:nth-child(3) { animation-delay: 0.6s; }
 ul li:nth-child(4) { animation-delay: 0.8s; }
 
 ul li a {
-    display: inline-block;
+    display: flex;
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    align-items: center; /* Centraliza o texto verticalmente */
     padding: 12px 24px;
     background-color: #00ffcc;
     color: #1a1a1a;
@@ -159,6 +164,8 @@ ul li a {
     font-size: 1.1rem;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; /* Efeito neon */
+    height: 100%; /* Faz com que todos os itens tenham a mesma altura */
+    text-align: center; /* Centraliza o texto */
 }
 
 ul li a:hover {
@@ -190,7 +197,7 @@ ul li a:hover {
 
 /* Estilos do Quiz */
 #quiz-container {
-    text-align: center;
+    text-align:center;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente */
     border-radius: 15px;
@@ -219,6 +226,7 @@ h3 {
     color: #fff;
     font-size: 1.5rem;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 /* Opções de Resposta */
@@ -230,6 +238,7 @@ div {
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
+    text-align: left;
 }
 
 div:hover {
