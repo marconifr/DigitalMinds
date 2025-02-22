@@ -9,7 +9,12 @@
 <body>
     <div id="home-container">
         <h1>Bem-vindo ao Quiz Digital Minds!</h1>
-        <p>Selecione uma categoria para começar:</p>
+        <p> 
+            Desafie sua mente e amplie seus conhecimentos em informática enquanto se diverte!
+            Prepare-se para revisar o conteúdo do curso técnico de forma interativa e emocionante!
+            Vamos aprender juntos! Selecione uma categoria para começar:
+        </p>
+
         <ul>
             {% for category in categories %}
                 <li><a href="{{ url_for('quiz', category=category) }}">{{ category }}</a></li>
